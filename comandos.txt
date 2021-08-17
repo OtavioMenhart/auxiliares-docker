@@ -1,0 +1,43 @@
+CRIAR IMAGEM
+
+- criar dockerfile, exemplo:
+FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS runtime
+COPY publish /app 
+WORKDIR /app
+EXPOSE 80/tcp
+ENTRYPOINT ["dotnet", "arquivo.dll"]
+
+- criar imagem
+docker build - t nomeimagem/tagimagem:versao(exemplo: 1.0) .
+
+- criar container
+docker container create -p portaliberada:exposedockerfile --name nomecontainer nomeimagem/tagimagem:versao(exemplo: 1.0)
+
+- startar container
+docker container start nomecontainer
+
+PUBLICAR IMAGEM
+- preparar imagem
+docker image tag nomeimagem/tagimagem:versao(exemplo: 1.0) usuariodockerhub/nomecontainer:versao(exemplo: 1.0)
+
+- login
+docker login -u usuariodockerhub
+
+- subir imagem docker image push usuariodockerhub/nomecontainer:versao(exemplo: 1.0)
+
+RODAR IMAGEM
+docker run --rm --name nome -p porta:portaexpose usuariodockerhub/imagem:versao
+
+Api.Processos.Data
+dotnet ef database update 
+
+DOCKER COMPOSE
+docker-compose build
+docker-compose up
+
+netstat -a -n -o | findstr numeroPorta
+Alterar o <pid> pelo número do PID que foi encontrado na listagem do comando do netstat.
+
+http://localhost:4000/index.html
+
+docker-compose down
